@@ -30,6 +30,7 @@
       background: var(--bg);
       color: var(--fg);
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
     a {
@@ -40,11 +41,15 @@
     section {
       padding: 100px 20px;
       text-align: center;
+      position: relative;
+      z-index: 1;
     }
 
     .container {
       max-width: 1200px;
       margin: auto;
+      position: relative;
+      z-index: 2;
     }
 
     .btn {
@@ -71,6 +76,17 @@
       padding: 2rem;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
       transition: transform 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    /* Particle Canvas */
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
     }
 
     /* Reveal Animation */
@@ -90,12 +106,13 @@
       position: fixed;
       top: 0;
       width: 100%;
-      background: #0f1c1c;
+      background: rgba(15, 28, 28, 0.8);
       padding: 1rem 1.5rem;
       z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      backdrop-filter: blur(10px);
     }
 
     nav#drawer {
@@ -104,10 +121,11 @@
       left: -100%;
       width: 260px;
       height: 100vh;
-      background: #101b1b;
+      background: rgba(16, 27, 27, 0.95);
       padding: 2rem 1.5rem;
       z-index: 2000;
       transition: left 0.3s ease;
+      backdrop-filter: blur(10px);
     }
 
     nav#drawer ul {
@@ -167,10 +185,13 @@
 
 <body>
 
+<!-- Particle Background -->
+<div id="particles-js"></div>
+
 <!-- Header with Menu Toggle -->
 <header>
   <div style="font-weight: 800; font-size: 1.5rem;">
-    <span style="color: var(--primary-light);">ARCH</span>-<span style="color: white;">MD</span>
+    <span style="color: var(--primary-light);">CASEYRHODES</span>-<span style="color: white;">MINI</span>
   </div>
   <button id="menu-toggle" style="background: none; border: none; color: white; font-size: 1.5rem;">
     <i class="fas fa-bars"></i>
@@ -190,7 +211,7 @@
     <li><a href="#deploy" onclick="closeMenu()">Deploy</a></li>
     <li><a href="#panel" onclick="closeMenu()">Panel</a></li>
   </ul>
-  <a href="https://whatsapp.com/channel/0029VbBhXEF3GJP0p1fcuo1v" target="_blank" class="btn" style="width: 100%; justify-content: center;">Follow Channel</a>
+  <!-- REMOVED ONE BUTTON: Follow Channel button removed to reduce button count -->
 </nav>
 
 <!-- Section: Welcome -->
@@ -234,9 +255,7 @@
       <p style="opacity: 0.85; max-width: 600px; margin: 0.5rem auto 1.5rem;">
         Join us here to reach out to us.
       </p>
-      <a href="https://chat.whatsapp.com/HrXLS86BylDEOnv87a70td?mode=ems_copy_t" target="_blank" class="btn">
-        <i class="fas fa-flask"></i> deploy with us
-      </a>
+      <!-- REMOVED ONE BUTTON: Deploy button removed to reduce button count -->
     </div>
 
     <!-- Scroll to Pair -->
@@ -263,61 +282,9 @@
   </div>
 </section>
 
-<!-- Section: Deploy -->
-<section id="deploy">
-  <div class="container">
-    <div class="reveal">
-      <h2 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 10px;">🚀 Deploy Options</h2>
-      <p style="opacity: 0.85; max-width: 600px; margin: 0 auto 2rem;">
-        Choose your preferred deployment method.
-      </p>
-    </div>
-
-    <div class="reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; margin-top: 3rem;">
-      <div class="card">
-        <h3>Local Deployment</h3>
-        <p>Run ARCH-MD on your local machine for development and testing.</p>
-        <a href="#" class="btn" style="margin-top: 1rem;">
-          <i class="fas fa-desktop"></i> Local Guide
-        </a>
-      </div>
-      
-      <div class="card">
-        <h3>Cloud Deployment</h3>
-        <p>Deploy to popular cloud platforms for 24/7 availability.</p>
-        <a href="#" class="btn" style="margin-top: 1rem;">
-          <i class="fas fa-cloud"></i> Cloud Guide
-        </a>
-      </div>
-      
-      <div class="card">
-        <h3>Quick Deploy</h3>
-        <p>One-click deployment options for fast setup.</p>
-        <a href="#" class="btn" style="margin-top: 1rem;">
-          <i class="fas fa-bolt"></i> Quick Deploy
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Section: Panel -->
-<section id="panel">
-  <div class="container">
-    <div class="reveal">
-      <h2 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 10px;">🎛️ Control Panel</h2>
-      <p style="opacity: 0.85; max-width: 600px; margin: 0 auto 2rem;">
-        Manage your bot settings, plugins, and performance metrics.
-      </p>
-      <a href="#" class="btn">
-        <i class="fas fa-cog"></i> Access Panel
-      </a>
-    </div>
-  </div>
-</section>
 
 <!-- Section: Footer -->
-<section id="footer" style="background: #0c0e12; padding: 60px 20px 30px;">
+<section id="footer" style="background: rgba(12, 14, 18, 0.8); padding: 60px 20px 30px; backdrop-filter: blur(10px);">
   <div class="container reveal">
     <h3 style="font-size: 1.6rem; margin-bottom: 10px;">⭐ Arch-MD on GitHub</h3>
     <p style="opacity: 0.8; margin-bottom: 2rem;">Join over 2,000 users and contributors building better WhatsApp bots together.</p>
@@ -326,20 +293,110 @@
       <a href="https://github.com/GoodnessObilom/Arch-Md" class="btn" target="_blank">
         <i class="fab fa-github"></i> GitHub
       </a>
-      <a href="https://t.me/arch_md" class="btn" target="_blank">
-        <i class="fab fa-telegram"></i> Telegram
-      </a>
-      <a href="https://arch.ednut.xyz/docs" class="btn" target="_blank">
-        <i class="fas fa-book"></i> Docs
-      </a>
+      <!-- REMOVED TWO BUTTONS: Telegram and Docs buttons removed to reduce button count -->
     </div>
 
     <p style="font-size: 0.9rem; opacity: 0.6;">&copy; <span id="year"></span> ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴛᴇᴄʜ. ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴛᴇᴄʜ ❤️</p>
   </div>
 </section>
 
+<!-- Particles.js Library -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
 <!-- Scripts -->
 <script>
+  // Initialize particles
+  document.addEventListener('DOMContentLoaded', function() {
+    particlesJS('particles-js', {
+      particles: {
+        number: {
+          value: 80,
+          density: {
+            enable: true,
+            value_area: 800
+          }
+        },
+        color: {
+          value: ["#6a0dad", "#4b0082", "#0000ff", "#000033"]
+        },
+        shape: {
+          type: "circle",
+          stroke: {
+            width: 0,
+            color: "#000000"
+          }
+        },
+        opacity: {
+          value: 0.5,
+          random: true,
+          anim: {
+            enable: true,
+            speed: 1,
+            opacity_min: 0.1,
+            sync: false
+          }
+        },
+        size: {
+          value: 3,
+          random: true,
+          anim: {
+            enable: true,
+            speed: 2,
+            size_min: 0.3,
+            sync: false
+          }
+        },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#4b0082",
+          opacity: 0.4,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false,
+          attract: {
+            enable: false,
+            rotateX: 600,
+            rotateY: 1200
+          }
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: {
+            enable: true,
+            mode: "grab"
+          },
+          onclick: {
+            enable: true,
+            mode: "push"
+          },
+          resize: true
+        },
+        modes: {
+          grab: {
+            distance: 140,
+            line_linked: {
+              opacity: 1
+            }
+          },
+          push: {
+            particles_nb: 4
+          }
+        }
+      },
+      retina_detect: true
+    });
+  });
+
   // Drawer open/close
   const drawer = document.getElementById("drawer");
   const toggle = document.getElementById("menu-toggle");
