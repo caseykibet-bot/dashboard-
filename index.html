@@ -11,12 +11,13 @@
 
     :root {
       --primary: #ff4fbf;
-      --secondary: #ff91dc;
+      --secondary: #c74bdb;
       --dark-bg: #0a0a0a;
       --darker-bg: #050505;
-      --card-bg: rgba(30, 30, 30, 0.6);
+      --card-bg: rgba(40, 10, 40, 0.5);
       --text: #f0f0f0;
       --text-secondary: #bbb;
+      --player-bg: rgba(30, 10, 30, 0.8);
     }
 
     body {
@@ -27,16 +28,16 @@
       overflow-x: hidden;
       padding-top: 70px;
       background-image: 
-        radial-gradient(circle at 15% 50%, rgba(255, 79, 191, 0.03) 0%, transparent 20%),
-        radial-gradient(circle at 85% 30%, rgba(255, 145, 220, 0.03) 0%, transparent 20%),
-        radial-gradient(circle at 50% 80%, rgba(255, 79, 191, 0.02) 0%, transparent 20%);
+        radial-gradient(circle at 15% 50%, rgba(255, 79, 191, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 85% 30%, rgba(199, 75, 219, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 50% 80%, rgba(255, 79, 191, 0.03) 0%, transparent 20%);
     }
 
     .topbar {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 70px;
-      background: rgba(10, 10, 10, 0.95);
+      background: rgba(15, 5, 15, 0.95);
       backdrop-filter: blur(12px);
       display: flex; align-items: center; justify-content: center;
       z-index: 1000;
@@ -77,7 +78,7 @@
       font-size: 26px; cursor: pointer; 
       color: var(--secondary); 
       z-index: 1001;
-      background: rgba(20, 20, 20, 0.5);
+      background: rgba(30, 10, 30, 0.5);
       width: 40px; height: 40px;
       border-radius: 50%;
       display: flex;
@@ -94,7 +95,7 @@
     .side-menu {
       position: fixed; top: 0; left: -280px;
       width: 260px; height: 100%;
-      background: rgba(15, 15, 15, 0.98);
+      background: rgba(15, 5, 15, 0.98);
       backdrop-filter: blur(10px);
       padding: 30px 20px;
       box-shadow: 5px 0 25px rgba(0, 0, 0, 0.4);
@@ -144,70 +145,6 @@
       max-width: 900px;
       margin: auto;
       padding: 40px 20px;
-    }
-
-    .desc {
-      font-size: 16px;
-      text-align: center;
-      color: var(--text-secondary);
-      margin-bottom: 40px;
-    }
-
-    .plans {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .plan {
-      background: var(--card-bg);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
-      backdrop-filter: blur(5px);
-      transition: all 0.3s ease;
-    }
-
-    .plan:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 30px rgba(255, 79, 191, 0.2);
-    }
-
-    .plan h3 { margin-top: 0; font-size: 20px; color: var(--secondary); }
-    .plan ul { padding-left: 18px; }
-
-    .price { margin: 12px 0; font-weight: bold; }
-    .usd { font-size: 13px; color: #aaa; }
-
-    .buy-text {
-      color: var(--primary);
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 500;
-      display: inline-block;
-      transition: all 0.3s ease;
-    }
-
-    .buy-text:hover { 
-      color: var(--secondary);
-      transform: translateX(5px);
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 50px;
-      font-size: 12px;
-      color: #666;
-      padding: 15px;
-    }
-
-    .thanks {
-      color: #777;
-      font-size: 12px;
-      text-align: center;
-      margin-top: 40px;
-      line-height: 1.6;
     }
 
     .profile-wrapper {
@@ -285,9 +222,11 @@
 
     .web-buttons {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr;
       gap: 18px;
       padding: 0 20px;
+      max-width: 300px;
+      margin: 0 auto;
     }
 
     .web-buttons a {
@@ -311,8 +250,123 @@
       box-shadow: 0 8px 22px rgba(255, 79, 191, 0.4);
     }
 
-    @media (max-width: 500px) {
-      .web-buttons { grid-template-columns: 1fr; }
+    /* Audio Player Styles */
+    .audio-player-container {
+      margin: 40px auto;
+      padding: 25px;
+      max-width: 500px;
+      background: var(--player-bg);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(199, 75, 219, 0.2);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .audio-player-title {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 18px;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .player-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .control-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .control-btn:hover {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      transform: scale(1.1);
+    }
+
+    .play-btn {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+    }
+
+    .progress-container {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 15px 0;
+      cursor: pointer;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      border-radius: 10px;
+      transition: width 0.1s linear;
+    }
+
+    .time-display {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 15px;
+    }
+
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .volume-slider {
+      flex: 1;
+      -webkit-appearance: none;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      outline: none;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+    }
+
+    .song-info {
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .current-song {
+      font-weight: 600;
+      color: var(--secondary);
+      margin-bottom: 5px;
     }
 
     /* Animation */
@@ -334,6 +388,7 @@
 
     .animate-delay-1 { animation-delay: 0.3s; }
     .animate-delay-2 { animation-delay: 0.6s; }
+    .animate-delay-3 { animation-delay: 0.9s; }
     
     /* Popup Modal */
     .popup {
@@ -342,7 +397,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: rgba(20, 20, 20, 0.98);
+      background: rgba(20, 5, 20, 0.98);
       padding: 30px 35px;
       border-radius: 16px;
       box-shadow: 0 0 30px rgba(255, 79, 191, 0.4);
@@ -421,28 +476,25 @@
       opacity: 0.3;
     }
 
-    /* Neon underline effect */
-    .neon-underline {
-      position: relative;
-      display: inline-block;
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 12px;
+      color: #666;
+      padding: 15px;
     }
 
-    .neon-underline::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -5px;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(to right, var(--primary), var(--secondary));
-      transform: scaleX(0);
-      transform-origin: bottom right;
-      transition: transform 0.3s ease;
+    .thanks {
+      color: #777;
+      font-size: 12px;
+      text-align: center;
+      margin-top: 40px;
+      line-height: 1.6;
     }
 
-    .neon-underline:hover::after {
-      transform: scaleX(1);
-      transform-origin: bottom left;
+    @media (max-width: 500px) {
+      .web-buttons { grid-template-columns: 1fr; }
+      .audio-player-container { padding: 15px; }
     }
   </style>
 </head>
@@ -464,13 +516,7 @@
       <a href="https://wa.me/+94760663483?text=" target="_blank"><i class="fab fa-whatsapp"></i> CONTACT ME</a>
     </div>
     <div class="info-box">
-      <a href="https://whatsapp.com/channel/0029Vb65iOZKwqSNKecV8V07" target="_blank"><i class="fab fa-whatsapp"></i> WHATSAPP CHANNEL</a>
-    </div>
-    <div class="info-box">
       <a href="/store.html" target="_blank"><i class="fas fa-store"></i> VISIT STORE</a>
-    </div>
-    <div class="info-box">
-      <a href="/freeplugin.html" target="_blank"><i class="fas fa-gift"></i> GET FREE PLUGIN</a>
     </div>
     <div class="thanks">
       Thank you for using<br/>SULA STORE
@@ -490,7 +536,42 @@
     <h3 class="web-title"><i class="fas fa-link"></i> QUICK ACCESS LINKS</h3>
     <div class="web-buttons">
       <a href="https://sula-md.site" target="_blank"><i class="fas fa-external-link-alt"></i> SULA MINI</a>
-      <a href="https://wa.me/+94760663483" target="_blank"><i class="fab fa-whatsapp"></i> WHATSAPP</a>
+    </div>
+  </div>
+
+  <!-- Audio Player -->
+  <div class="audio-player-container animate animate-delay-3">
+    <h3 class="audio-player-title"><i class="fas fa-music"></i> SULA MUSIC PLAYER</h3>
+    
+    <div class="song-info">
+      <div class="current-song">Now Playing: Chill Vibes</div>
+      <div>By SULA Sounds</div>
+    </div>
+    
+    <div class="player-controls">
+      <button class="control-btn" id="prev">
+        <i class="fas fa-step-backward"></i>
+      </button>
+      <button class="control-btn play-btn" id="play-pause">
+        <i class="fas fa-play" id="play-icon"></i>
+      </button>
+      <button class="control-btn" id="next">
+        <i class="fas fa-step-forward"></i>
+      </button>
+    </div>
+    
+    <div class="progress-container" id="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    
+    <div class="time-display">
+      <span id="current-time">0:00</span>
+      <span id="duration">0:00</span>
+    </div>
+    
+    <div class="volume-control">
+      <i class="fas fa-volume-up"></i>
+      <input type="range" class="volume-slider" id="volume" min="0" max="1" step="0.01" value="1">
     </div>
   </div>
  
@@ -507,6 +588,12 @@
   </div>
 
   <div class="footer">© 2023 SULAKSHA MADARA | ALL RIGHTS RESERVED</div>
+
+  <!-- Audio Element (Hidden) -->
+  <audio id="audio-element">
+    <source src="https://files.catbox.moe/kxdej4.m4a" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
   <script>
     function toggleMenu() {
@@ -547,7 +634,7 @@
     // Create particles for background
     function createParticles() {
       const particlesContainer = document.getElementById('particles');
-      const numberOfParticles = 30;
+      const numberOfParticles = 20;
       
       for (let i = 0; i < numberOfParticles; i++) {
         const particle = document.createElement('div');
@@ -569,6 +656,112 @@
         particlesContainer.appendChild(particle);
       }
     }
+
+    // Audio Player Functionality
+    const audio = document.getElementById('audio-element');
+    const playPauseBtn = document.getElementById('play-pause');
+    const playIcon = document.getElementById('play-icon');
+    const progressBar = document.getElementById('progress-bar');
+    const progressContainer = document.getElementById('progress-container');
+    const currentTimeEl = document.getElementById('current-time');
+    const durationEl = document.getElementById('duration');
+    const volumeSlider = document.getElementById('volume');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    const songTitleEl = document.querySelector('.current-song');
+
+    // Playlist of songs
+    const playlist = [
+      { title: "Chill Vibes", src: "https://files.catbox.moe/kxdej4.m4a" },
+      { title: "Starlight", src: "https://files.catbox.moe/0aoqzx.mp3" },
+      { title: "Enemies", src: "https://files.catbox.moe/d5yxdu.mp3" }
+    ];
+    
+    let currentSongIndex = 0;
+
+    // Load a song
+    function loadSong(index) {
+      const song = playlist[index];
+      audio.src = song.src;
+      songTitleEl.textContent = `Now Playing: ${song.title}`;
+      
+      audio.addEventListener('loadedmetadata', () => {
+        durationEl.textContent = formatTime(audio.duration);
+      });
+    }
+
+    // Play/Pause functionality
+    function togglePlayPause() {
+      if (audio.paused) {
+        audio.play();
+        playIcon.classList.remove('fa-play');
+        playIcon.classList.add('fa-pause');
+      } else {
+        audio.pause();
+        playIcon.classList.remove('fa-pause');
+        playIcon.classList.add('fa-play');
+      }
+    }
+
+    // Update progress bar
+    function updateProgress() {
+      const { currentTime, duration } = audio;
+      const progressPercent = (currentTime / duration) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+      currentTimeEl.textContent = formatTime(currentTime);
+    }
+
+    // Set progress when clicking on progress bar
+    function setProgress(e) {
+      const width = this.clientWidth;
+      const clickX = e.offsetX;
+      const duration = audio.duration;
+      audio.currentTime = (clickX / width) * duration;
+    }
+
+    // Format time in minutes:seconds
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    // Set volume
+    function setVolume() {
+      audio.volume = volumeSlider.value;
+    }
+
+    // Previous song
+    function prevSong() {
+      currentSongIndex--;
+      if (currentSongIndex < 0) {
+        currentSongIndex = playlist.length - 1;
+      }
+      loadSong(currentSongIndex);
+      if (!audio.paused) audio.play();
+    }
+
+    // Next song
+    function nextSong() {
+      currentSongIndex++;
+      if (currentSongIndex >= playlist.length) {
+        currentSongIndex = 0;
+      }
+      loadSong(currentSongIndex);
+      if (!audio.paused) audio.play();
+    }
+
+    // Event listeners for audio player
+    playPauseBtn.addEventListener('click', togglePlayPause);
+    audio.addEventListener('timeupdate', updateProgress);
+    audio.addEventListener('ended', nextSong);
+    progressContainer.addEventListener('click', setProgress);
+    volumeSlider.addEventListener('input', setVolume);
+    prevBtn.addEventListener('click', prevSong);
+    nextBtn.addEventListener('click', nextSong);
+
+    // Initialize player with first song
+    loadSong(currentSongIndex);
 
     // Add floating animation for particles
     const style = document.createElement('style');
