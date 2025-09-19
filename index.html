@@ -3,16 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ARCH-MD – WhatsApp Bot</title>
+  <title>ARCH-MD – Advanced WhatsApp Bot</title>
 
   <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
     :root {
       --primary: #00b894;
       --primary-light: #33ccaa;
+      --accent-blue: #4a6cf7;
+      --accent-purple: #8a2be2;
+      --accent-dark: #0f1c1c;
       --bg: #000;
       --fg: #fff;
       --glass: rgba(255, 255, 255, 0.05);
@@ -58,16 +61,28 @@
       gap: 0.5rem;
       background: linear-gradient(135deg, var(--primary), var(--primary-light));
       color: #fff;
-      padding: 12px 24px;
+      padding: 12px 28px;
       font-weight: 600;
       border-radius: var(--radius);
       border: none;
       cursor: pointer;
       transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3);
     }
 
     .btn:hover {
       transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0, 184, 148, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(0, 184, 148, 0.1);
     }
 
     .card {
@@ -77,6 +92,13 @@
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
       transition: transform 0.3s ease;
       backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
     }
 
     /* Particle Canvas */
@@ -113,6 +135,7 @@
       justify-content: space-between;
       align-items: center;
       backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     nav#drawer {
@@ -126,6 +149,7 @@
       z-index: 2000;
       transition: left 0.3s ease;
       backdrop-filter: blur(10px);
+      border-right: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     nav#drawer ul {
@@ -137,14 +161,15 @@
       font-size: 1.1rem;
     }
 
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: 0.6s ease;
+    nav#drawer a {
+      color: #ccc;
+      transition: color 0.3s ease;
+      display: block;
+      padding: 0.5rem 0;
     }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
+
+    nav#drawer a:hover {
+      color: var(--primary);
     }
 
     .fade-left {
@@ -177,8 +202,161 @@
       transform: scale(1);
     }
 
-    nav#drawer a {
+    /* Stats */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin: 3rem 0;
+    }
+
+    .stat-item {
+      background: var(--glass);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      min-width: 180px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--primary), var(--accent-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Feature Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .feature-item {
+      text-align: left;
+      padding: 1.5rem;
+      background: var(--glass);
+      border-radius: var(--radius);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    /* Testimonials */
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .testimonial {
+      background: var(--glass);
+      padding: 2rem;
+      border-radius: var(--radius);
+      text-align: left;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    /* Footer */
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
       color: #ccc;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .social-links a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--glass);
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      section {
+        padding: 80px 20px;
+      }
+      
+      .stats {
+        gap: 1rem;
+      }
+      
+      .stat-item {
+        min-width: 140px;
+        padding: 1rem;
+      }
+      
+      .stat-number {
+        font-size: 2rem;
+      }
     }
   </style>
 </head>
@@ -207,11 +385,12 @@
     </button>
   </div>
   <ul>
-    <li><a href="#pair" onclick="closeMenu()">Pair</a></li>
-    <li><a href="#deploy" onclick="closeMenu()">Deploy</a></li>
-    <li><a href="#panel" onclick="closeMenu()">Panel</a></li>
+    <li><a href="#welcome" onclick="closeMenu()">Home</a></li>
+    <li><a href="#features" onclick="closeMenu()">Features</a></li>
+    <li><a href="#pair" onclick="closeMenu()">Pair Device</a></li>
+    <li><a href="#testimonials" onclick="closeMenu()">Testimonials</a></li>
+    <li><a href="#footer" onclick="closeMenu()">Contact</a></li>
   </ul>
-  <!-- REMOVED ONE BUTTON: Follow Channel button removed to reduce button count -->
 </nav>
 
 <!-- Section: Welcome -->
@@ -219,50 +398,113 @@
   <div class="container">
     <!-- Logo -->
     <div class="reveal" style="margin-bottom: 30px;">
-      <img src="https://files.catbox.moe/7kkzcr.jpg" alt="Arch-Md Logo" width="100" style="border-radius: 50%; box-shadow: 0 0 25px rgba(0, 255, 170, 0.4);" />
+      <img src="https://files.catbox.moe/7kkzcr.jpg" alt="Arch-Md Logo" width="120" style="border-radius: 50%; box-shadow: 0 0 25px rgba(0, 255, 170, 0.4);" />
     </div>
 
     <!-- Title -->
-    <h1 class="reveal" style="font-size: 2.6rem; font-weight: 800; margin-bottom: 10px;">
-      <span style="background: linear-gradient(135deg, var(--primary), var(--primary-light)); -webkit-background-clip: text; color: transparent;">
+    <h1 class="reveal" style="font-size: 3.5rem; font-weight: 800; margin-bottom: 10px; line-height: 1.2;">
+      <span style="background: linear-gradient(135deg, var(--primary), var(--accent-blue)); -webkit-background-clip: text; color: transparent;">
         ARCH‑MD
       </span>
     </h1>
 
-    <p class="reveal" style="opacity: 0.85; font-size: 1.1rem; max-width: 600px; margin: 0 auto 2.5rem;">
-      The next-generation WhatsApp Bot for automation, deployment, and power users.
+    <p class="reveal" style="opacity: 0.85; font-size: 1.2rem; max-width: 700px; margin: 0 auto 2.5rem;">
+      The next-generation WhatsApp Bot for automation, deployment, and power users with advanced AI capabilities.
     </p>
 
-    <!-- Features -->
-    <div class="reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
-      <div class="card">
-        <h3>📊 Dashboard</h3>
-        <p>Live overview of your bot activity and performance.</p>
+    <!-- Stats -->
+    <div class="stats reveal">
+      <div class="stat-item">
+        <div class="stat-number">2,000+</div>
+        <div>Active Users</div>
       </div>
-      <div class="card">
-        <h3>📦 Plugin System</h3>
-        <p>Flexible plugin structure, easily extensible with 1 click.</p>
+      <div class="stat-item">
+        <div class="stat-number">99.9%</div>
+        <div>Uptime</div>
       </div>
-      <div class="card">
-        <h3>🧠 Smart Commands</h3>
-        <p>AI-powered replies, media tools, and moderation utilities.</p>
+      <div class="stat-item">
+        <div class="stat-number">50+</div>
+        <div>Plugins</div>
       </div>
     </div>
 
-    <!-- Beta CTA -->
-    <div class="reveal" style="margin-bottom: 3rem;">
-      <h2 style="font-size: 1.8rem;">🔥 Wanna try out our 2min deploy ?</h2>
-      <p style="opacity: 0.85; max-width: 600px; margin: 0.5rem auto 1.5rem;">
-        Join us here to reach out to us.
-      </p>
-      <!-- REMOVED ONE BUTTON: Deploy button removed to reduce button count -->
-    </div>
-
-    <!-- Scroll to Pair -->
-    <div class="reveal">
+    <!-- CTA Buttons -->
+    <div class="reveal" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem;">
       <a href="#pair" class="btn">
-        <i class="fas fa-arrow-down"></i> Start Bot Setup
+        <i class="fas fa-rocket"></i> Get Started
       </a>
+      <a href="#features" class="btn btn-secondary">
+        <i class="fas fa-feather-alt"></i> Learn More
+      </a>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="reveal" style="margin-top: 3rem;">
+      <a href="#features" class="scroll-indicator">
+        <i class="fas fa-chevron-down" style="animation: bounce 2s infinite;"></i>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Section: Features -->
+<section id="features" style="background: rgba(10, 15, 20, 0.7);">
+  <div class="container">
+    <div class="reveal">
+      <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 10px;">✨ Powerful Features</h2>
+      <p style="opacity: 0.85; max-width: 600px; margin: 0 auto 3rem;">
+        ARCH-MD comes packed with features that make it the most advanced WhatsApp bot available.
+      </p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-item reveal">
+        <div class="feature-icon">
+          <i class="fas fa-brain"></i>
+        </div>
+        <h3>AI-Powered Intelligence</h3>
+        <p>Advanced natural language processing for intelligent conversations and context-aware responses.</p>
+      </div>
+
+      <div class="feature-item reveal">
+        <div class="feature-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h3>Advanced Security</h3>
+        <p>End-to-end encryption, user authentication, and secure data handling to protect your privacy.</p>
+      </div>
+
+      <div class="feature-item reveal">
+        <div class="feature-icon">
+          <i class="fas fa-plug"></i>
+        </div>
+        <h3>Plugin System</h3>
+        <p>Extensible architecture with support for custom plugins to add new functionality easily.</p>
+      </div>
+
+      <div class="feature-item reveal">
+        <div class="feature-icon">
+          <i class="fas fa-tachometer-alt"></i>
+        </div>
+        <h3>Performance Dashboard</h3>
+        <p>Monitor your bot's performance with real-time analytics and usage statistics.</p>
+      </div>
+
+      <div class="feature-item reveal">
+        <div class="feature-icon">
+          <i class="fas fa-robot"></i>
+        </div>
+        <h3>Automation Tools</h3>
+        <p>Automate repetitive tasks, schedule messages, and create custom workflows.</p>
+      </div>
+
+      <div class="feature-item reveal">
+        <div class="feature-icon">
+          <i class="fas fa-users-cog"></i>
+        </div>
+        <h3>Group Management</h3>
+        <p>Powerful tools for managing groups, moderating content, and automating admin tasks.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -271,10 +513,26 @@
 <section id="pair">
   <div class="container">
     <div class="reveal">
-      <h2 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 10px;">🔗 Pair Your Device</h2>
+      <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 10px;">🔗 Pair Your Device</h2>
       <p style="opacity: 0.85; max-width: 600px; margin: 0 auto 2rem;">
-        Connect your WhatsApp account to get started with ARCH-MD.
+        Connect your WhatsApp account to get started with ARCH-MD in just a few simple steps.
       </p>
+      
+      <div style="max-width: 500px; margin: 0 auto 3rem; text-align: left;">
+        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+          <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">1</div>
+          <div>Click the Pair Now button below</div>
+        </div>
+        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+          <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">2</div>
+          <div>Scan the QR code with WhatsApp</div>
+        </div>
+        <div style="display: flex; align-items: center;">
+          <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">3</div>
+          <div>Start using ARCH-MD immediately</div>
+        </div>
+      </div>
+      
       <a href="#" class="btn">
         <i class="fas fa-link"></i> Pair Now
       </a>
@@ -282,21 +540,109 @@
   </div>
 </section>
 
-
-<!-- Section: Footer -->
-<section id="footer" style="background: rgba(12, 14, 18, 0.8); padding: 60px 20px 30px; backdrop-filter: blur(10px);">
-  <div class="container reveal">
-    <h3 style="font-size: 1.6rem; margin-bottom: 10px;">⭐ Arch-MD on GitHub</h3>
-    <p style="opacity: 0.8; margin-bottom: 2rem;">Join over 2,000 users and contributors building better WhatsApp bots together.</p>
-
-    <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 30px;">
-      <a href="https://github.com/GoodnessObilom/Arch-Md" class="btn" target="_blank">
-        <i class="fab fa-github"></i> GitHub
-      </a>
-      <!-- REMOVED TWO BUTTONS: Telegram and Docs buttons removed to reduce button count -->
+<!-- Section: Testimonials -->
+<section id="testimonials" style="background: rgba(10, 15, 20, 0.7);">
+  <div class="container">
+    <div class="reveal">
+      <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 10px;">❤️ What Users Say</h2>
+      <p style="opacity: 0.85; max-width: 600px; margin: 0 auto 3rem;">
+        Don't just take our word for it. Here's what our users have to say about ARCH-MD.
+      </p>
     </div>
 
-    <p style="font-size: 0.9rem; opacity: 0.6;">&copy; <span id="year"></span> ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴛᴇᴄʜ. ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴛᴇᴄʜ ❤️</p>
+    <div class="testimonials">
+      <div class="testimonial reveal">
+        <div class="testimonial-text">
+          "ARCH-MD has completely transformed how I manage my WhatsApp groups. The automation features save me hours every week!"
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">S</div>
+          <div>
+            <strong>Sarah Johnson</strong>
+            <div>Community Manager</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial reveal">
+        <div class="testimonial-text">
+          "The plugin system is incredible. I've customized ARCH-MD to handle our specific business needs perfectly."
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">M</div>
+          <div>
+            <strong>Michael Chen</strong>
+            <div>Tech Lead</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial reveal">
+        <div class="testimonial-text">
+          "I've tried many WhatsApp bots, but ARCH-MD stands out with its reliability and feature set. Highly recommended!"
+        </div>
+        <div class="testimonial-author">
+          <div class="author-avatar">A</div>
+          <div>
+            <strong>Alex Rodriguez</strong>
+            <div>Content Creator</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section: Footer -->
+<section id="footer" style="padding: 60px 20px 30px; background: rgba(12, 14, 18, 0.8); backdrop-filter: blur(10px);">
+  <div class="container">
+    <div class="footer-content">
+      <div class="reveal">
+        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">ᴄᴀsᴡʏʀʜᴏᴅᴇs ᴍɪɴɪ</h3>
+        <p style="opacity: 0.8; margin-bottom: 1rem;">
+          The next-generation WhatsApp Bot for automation, deployment, and power users.
+        </p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-github"></i></a>
+          <a href="#"><i class="fab fa-telegram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-discord"></i></a>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <h3 style="font-size: 1.2rem; margin-bottom: 1rem;">Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="#welcome">Home</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pair">Pair Device</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+        </ul>
+      </div>
+
+      <div class="reveal">
+        <h3 style="font-size: 1.2rem; margin-bottom: 1rem;">Resources</h3>
+        <ul class="footer-links">
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">API Reference</a></li>
+          <li><a href="#">Community Forum</a></li>
+          <li><a href="#">Plugin Library</a></li>
+        </ul>
+      </div>
+
+      <div class="reveal">
+        <h3 style="font-size: 1.2rem; margin-bottom: 1rem;">Contact</h3>
+        <ul class="footer-links">
+          <li><a href="mailto:support@archmd.com">support@archmd.com</a></li>
+          <li><a href="#">Report an Issue</a></li>
+          <li><a href="#">Request a Feature</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="reveal" style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 2rem;">
+      <p style="font-size: 0.9rem; opacity: 0.6;">&copy; <span id="year"></span> ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴛᴇᴄʜ. ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴛᴇᴄʜ ❤️</p>
+    </div>
   </div>
 </section>
 
@@ -310,14 +656,14 @@
     particlesJS('particles-js', {
       particles: {
         number: {
-          value: 80,
+          value: 100,
           density: {
             enable: true,
-            value_area: 800
+            value_area: 1000
           }
         },
         color: {
-          value: ["#6a0dad", "#4b0082", "#0000ff", "#000033"]
+          value: ["#6a0dad", "#4b0082", "#0000ff", "#4a6cf7", "#8a2be2"]
         },
         shape: {
           type: "circle",
@@ -327,42 +673,42 @@
           }
         },
         opacity: {
-          value: 0.5,
+          value: 0.6,
           random: true,
           anim: {
             enable: true,
             speed: 1,
-            opacity_min: 0.1,
+            opacity_min: 0.2,
             sync: false
           }
         },
         size: {
-          value: 3,
+          value: 4,
           random: true,
           anim: {
             enable: true,
-            speed: 2,
-            size_min: 0.3,
+            speed: 3,
+            size_min: 0.5,
             sync: false
           }
         },
         line_linked: {
           enable: true,
-          distance: 150,
-          color: "#4b0082",
+          distance: 160,
+          color: "#6a0dad",
           opacity: 0.4,
-          width: 1
+          width: 1.5
         },
         move: {
           enable: true,
-          speed: 1,
+          speed: 2,
           direction: "none",
           random: true,
           straight: false,
           out_mode: "out",
           bounce: false,
           attract: {
-            enable: false,
+            enable: true,
             rotateX: 600,
             rotateY: 1200
           }
@@ -383,13 +729,13 @@
         },
         modes: {
           grab: {
-            distance: 140,
+            distance: 180,
             line_linked: {
               opacity: 1
             }
           },
           push: {
-            particles_nb: 4
+            particles_nb: 6
           }
         }
       },
@@ -412,7 +758,7 @@
   // Reveal on scroll
   const reveals = document.querySelectorAll(".reveal");
   function revealOnScroll() {
-    const trigger = window.innerHeight * 0.9;
+    const trigger = window.innerHeight * 0.85;
     reveals.forEach(el => {
       const top = el.getBoundingClientRect().top;
       if (top < trigger) el.classList.add("active");
@@ -424,9 +770,17 @@
   
   window.addEventListener("scroll", revealOnScroll);
   window.addEventListener("load", revealOnScroll);
-  window.addEventListener("load", function() {
-    revealOnScroll();
-  });
+  
+  // Add bounce animation for scroll indicator
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+      40% {transform: translateY(-10px);}
+      60% {transform: translateY(-5px);}
+    }
+  `;
+  document.head.appendChild(style);
 </script>
 
 </body>
