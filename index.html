@@ -3,785 +3,585 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ARCH-MD – Advanced WhatsApp Bot</title>
-
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
+  <title>SULA MINI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --primary: #00b894;
-      --primary-light: #33ccaa;
-      --accent-blue: #4a6cf7;
-      --accent-purple: #8a2be2;
-      --accent-dark: #0f1c1c;
-      --bg: #000;
-      --fg: #fff;
-      --glass: rgba(255, 255, 255, 0.05);
-      --radius: 16px;
+      --primary: #ff4fbf;
+      --secondary: #ff91dc;
+      --dark-bg: #0a0a0a;
+      --darker-bg: #050505;
+      --card-bg: rgba(30, 30, 30, 0.6);
+      --text: #f0f0f0;
+      --text-secondary: #bbb;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--fg);
-      scroll-behavior: smooth;
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--dark-bg);
+      color: var(--text);
+      min-height: 100vh;
       overflow-x: hidden;
+      padding-top: 70px;
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(255, 79, 191, 0.03) 0%, transparent 20%),
+        radial-gradient(circle at 85% 30%, rgba(255, 145, 220, 0.03) 0%, transparent 20%),
+        radial-gradient(circle at 50% 80%, rgba(255, 79, 191, 0.02) 0%, transparent 20%);
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    section {
-      padding: 100px 20px;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      position: relative;
-      z-index: 2;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: linear-gradient(135deg, var(--primary), var(--primary-light));
-      color: #fff;
-      padding: 12px 28px;
-      font-weight: 600;
-      border-radius: var(--radius);
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3);
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(0, 184, 148, 0.4);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      border: 2px solid var(--primary);
-      color: var(--primary);
-    }
-
-    .btn-secondary:hover {
-      background: rgba(0, 184, 148, 0.1);
-    }
-
-    .card {
-      background: var(--glass);
-      border-radius: var(--radius);
-      padding: 2rem;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-      transition: transform 0.3s ease;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      height: 100%;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    /* Particle Canvas */
-    #particles-js {
+    .topbar {
       position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      z-index: 0;
-    }
-
-    /* Reveal Animation */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Header */
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(15, 28, 28, 0.8);
-      padding: 1rem 1.5rem;
+      top: 0; left: 0;
+      width: 100%; height: 70px;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: center;
       z-index: 1000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     }
 
-    nav#drawer {
-      position: fixed;
-      top: 0;
-      left: -100%;
-      width: 260px;
-      height: 100vh;
-      background: rgba(16, 27, 27, 0.95);
-      padding: 2rem 1.5rem;
-      z-index: 2000;
-      transition: left 0.3s ease;
+    .topbar .title {
+      font-size: 24px;
+      font-weight: 900;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .login-topbar {
+      position: absolute; right: 20px; top: 18px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 79, 191, 0.3);
+    }
+
+    .login-topbar:hover { 
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 79, 191, 0.4);
+    }
+
+    .menu-btn {
+      position: fixed; top: 20px; left: 20px;
+      font-size: 26px; cursor: pointer; 
+      color: var(--secondary); 
+      z-index: 1001;
+      background: rgba(20, 20, 20, 0.5);
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .menu-btn:hover {
+      background: rgba(255, 79, 191, 0.1);
+      transform: rotate(90deg);
+    }
+
+    .side-menu {
+      position: fixed; top: 0; left: -280px;
+      width: 260px; height: 100%;
+      background: rgba(15, 15, 15, 0.98);
       backdrop-filter: blur(10px);
+      padding: 30px 20px;
+      box-shadow: 5px 0 25px rgba(0, 0, 0, 0.4);
+      transition: left 0.4s ease;
+      z-index: 998;
       border-right: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    nav#drawer ul {
-      list-style: none;
-      padding: 2rem 0;
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      font-size: 1.1rem;
-    }
-
-    nav#drawer a {
-      color: #ccc;
-      transition: color 0.3s ease;
-      display: block;
-      padding: 0.5rem 0;
-    }
-
-    nav#drawer a:hover {
-      color: var(--primary);
-    }
-
-    .fade-left {
-      opacity: 0;
-      transform: translateX(-40px);
-      transition: 0.6s ease;
-    }
-    .fade-left.active {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .fade-right {
-      opacity: 0;
-      transform: translateX(40px);
-      transition: 0.6s ease;
-    }
-    .fade-right.active {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .zoom-in {
-      opacity: 0;
-      transform: scale(0.9);
-      transition: 0.6s ease;
-    }
-    .zoom-in.active {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    /* Stats */
-    .stats {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-      margin: 3rem 0;
-    }
-
-    .stat-item {
-      background: var(--glass);
-      padding: 1.5rem;
-      border-radius: var(--radius);
-      min-width: 180px;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .stat-number {
-      font-size: 2.5rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--primary), var(--accent-blue));
+    .side-menu.active { left: 0; }
+    .side-title {
+      font-size: 22px; font-weight: 800; 
+      background: linear-gradient(to right, var(--primary), var(--secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 0.5rem;
+      text-align: center; margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    /* Feature Grid */
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin: 3rem 0;
+    .info-box {
+      margin-bottom: 20px;
+      display: flex; justify-content: center;
     }
 
-    .feature-item {
-      text-align: left;
-      padding: 1.5rem;
-      background: var(--glass);
-      border-radius: var(--radius);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .feature-icon {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: var(--primary);
-    }
-
-    /* Testimonials */
-    .testimonials {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin: 3rem 0;
-    }
-
-    .testimonial {
-      background: var(--glass);
-      padding: 2rem;
-      border-radius: var(--radius);
-      text-align: left;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .testimonial-text {
-      font-style: italic;
-      margin-bottom: 1rem;
-    }
-
-    .testimonial-author {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .author-avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), var(--accent-blue));
+    .info-box a {
+      font-size: 14px;
+      color: #fff;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      padding: 12px 20px;
+      border-radius: 10px;
+      width: 100%; text-align: center;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 79, 191, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
+      gap: 8px;
     }
 
-    /* Footer */
-    .footer-content {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      text-align: left;
-      margin-bottom: 2rem;
+    .info-box a:hover { 
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 79, 191, 0.4);
     }
 
-    .footer-links {
-      list-style: none;
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
     }
 
-    .footer-links li {
-      margin-bottom: 0.5rem;
+    .desc {
+      font-size: 16px;
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
     }
 
-    .footer-links a {
-      color: #ccc;
-      transition: color 0.3s ease;
-    }
-
-    .footer-links a:hover {
-      color: var(--primary);
-    }
-
-    .social-links {
+    .plans {
       display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
+      flex-direction: column;
+      gap: 20px;
     }
 
-    .social-links a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--glass);
+    .plan {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(5px);
       transition: all 0.3s ease;
     }
 
-    .social-links a:hover {
-      background: var(--primary);
-      transform: translateY(-3px);
+    .plan:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 30px rgba(255, 79, 191, 0.2);
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-      section {
-        padding: 80px 20px;
-      }
-      
-      .stats {
-        gap: 1rem;
-      }
-      
-      .stat-item {
-        min-width: 140px;
-        padding: 1rem;
-      }
-      
-      .stat-number {
-        font-size: 2rem;
-      }
+    .plan h3 { margin-top: 0; font-size: 20px; color: var(--secondary); }
+    .plan ul { padding-left: 18px; }
+
+    .price { margin: 12px 0; font-weight: bold; }
+    .usd { font-size: 13px; color: #aaa; }
+
+    .buy-text {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .buy-text:hover { 
+      color: var(--secondary);
+      transform: translateX(5px);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 12px;
+      color: #666;
+      padding: 15px;
+    }
+
+    .thanks {
+      color: #777;
+      font-size: 12px;
+      text-align: center;
+      margin-top: 40px;
+      line-height: 1.6;
+    }
+
+    .profile-wrapper {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 35px 25px;
+      margin-top: 60px;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(5px);
+      transition: all 0.4s ease;
+    }
+
+    .profile-wrapper:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 35px rgba(255, 79, 191, 0.15);
+    }
+
+    .profile-wrapper img.profile-img {
+      width: 250px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+      margin-bottom: 25px;
+      transition: all 0.4s ease;
+    }
+
+    .profile-wrapper:hover img.profile-img {
+      transform: scale(1.03);
+    }
+
+    .profile-wrapper h2 {
+      font-size: 22px;
+      margin: 15px 0;
+      color: var(--text);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .profile-wrapper p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin: 15px auto 20px;
+      line-height: 1.7;
+    }
+
+    .web-container {
+      margin: 50px auto;
+      padding: 35px 25px;
+      max-width: 700px;
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      backdrop-filter: blur(5px);
+      transition: all 0.4s ease;
+    }
+
+    .web-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 35px rgba(255, 79, 191, 0.15);
+    }
+
+    .web-title {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 20px;
+      margin-bottom: 28px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+    }
+
+    .web-buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      padding: 0 20px;
+    }
+
+    .web-buttons a {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: #fff;
+      padding: 14px 12px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 15px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 18px rgba(255, 79, 191, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .web-buttons a:hover { 
+      transform: translateY(-3px);
+      box-shadow: 0 8px 22px rgba(255, 79, 191, 0.4);
+    }
+
+    @media (max-width: 500px) {
+      .web-buttons { grid-template-columns: 1fr; }
+    }
+
+    /* Animation */
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes glow {
+      0% { box-shadow: 0 0 5px rgba(255, 79, 191, 0.5); }
+      50% { box-shadow: 0 0 20px rgba(255, 79, 191, 0.8); }
+      100% { box-shadow: 0 0 5px rgba(255, 79, 191, 0.5); }
+    }
+
+    .animate {
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .animate-delay-1 { animation-delay: 0.3s; }
+    .animate-delay-2 { animation-delay: 0.6s; }
+    
+    /* Popup Modal */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(20, 20, 20, 0.98);
+      padding: 30px 35px;
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(255, 79, 191, 0.4);
+      z-index: 1000;
+      width: 90%;
+      max-width: 450px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      animation: glow 3s infinite;
+    }
+
+    .popup h3 {
+      margin-top: 0;
+      color: var(--secondary);
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    .popup p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .popup a {
+      color: var(--secondary);
+      text-decoration: underline;
+    }
+
+    .popup button {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      border: none;
+      padding: 12px 25px;
+      color: #fff;
+      font-weight: 600;
+      margin-top: 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 79, 191, 0.3);
+    }
+
+    .popup button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 79, 191, 0.4);
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+      backdrop-filter: blur(5px);
+    }
+
+    /* Particles background */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      border-radius: 50%;
+      opacity: 0.3;
+    }
+
+    /* Neon underline effect */
+    .neon-underline {
+      position: relative;
+      display: inline-block;
+    }
+
+    .neon-underline::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.3s ease;
+    }
+
+    .neon-underline:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
     }
   </style>
 </head>
-
 <body>
 
-<!-- Particle Background -->
-<div id="particles-js"></div>
+  <!-- Particles background -->
+  <div class="particles" id="particles"></div>
 
-<!-- Header with Menu Toggle -->
-<header>
-  <div style="font-weight: 800; font-size: 1.5rem;">
-    <span style="color: var(--primary-light);">CASEYRHODES</span>-<span style="color: white;">MINI</span>
+  <div class="topbar">
+    <div class="title">SULA MINI</div>
+    <a href="/index.html" class="login-topbar"><i class="fas fa-arrow-left"></i> BACK TO SULA</a>
   </div>
-  <button id="menu-toggle" style="background: none; border: none; color: white; font-size: 1.5rem;">
-    <i class="fas fa-bars"></i>
-  </button>
-</header>
 
-<!-- Drawer Sidebar Menu -->
-<nav id="drawer">
-  <div style="display: flex; justify-content: space-between; align-items: center;">
-    <strong style="color: var(--primary-light); font-size: 1.2rem;">ARCH‑MD</strong>
-    <button id="close-menu" style="background: none; border: none; font-size: 1.5rem; color: white;">
-      <i class="fas fa-times"></i>
-    </button>
-  </div>
-  <ul>
-    <li><a href="#welcome" onclick="closeMenu()">Home</a></li>
-    <li><a href="#features" onclick="closeMenu()">Features</a></li>
-    <li><a href="#pair" onclick="closeMenu()">Pair Device</a></li>
-    <li><a href="#testimonials" onclick="closeMenu()">Testimonials</a></li>
-    <li><a href="#footer" onclick="closeMenu()">Contact</a></li>
-  </ul>
-</nav>
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
 
-<!-- Section: Welcome -->
-<section id="welcome">
-  <div class="container">
-    <!-- Logo -->
-    <div class="reveal" style="margin-bottom: 30px;">
-      <img src="https://files.catbox.moe/7kkzcr.jpg" alt="Arch-Md Logo" width="120" style="border-radius: 50%; box-shadow: 0 0 25px rgba(0, 255, 170, 0.4);" />
+  <div class="side-menu" id="menu">
+    <div class="side-title">SULA STORE</div>
+    <div class="info-box">
+      <a href="https://wa.me/+94760663483?text=" target="_blank"><i class="fab fa-whatsapp"></i> CONTACT ME</a>
     </div>
+    <div class="info-box">
+      <a href="https://whatsapp.com/channel/0029Vb65iOZKwqSNKecV8V07" target="_blank"><i class="fab fa-whatsapp"></i> WHATSAPP CHANNEL</a>
+    </div>
+    <div class="info-box">
+      <a href="/store.html" target="_blank"><i class="fas fa-store"></i> VISIT STORE</a>
+    </div>
+    <div class="info-box">
+      <a href="/freeplugin.html" target="_blank"><i class="fas fa-gift"></i> GET FREE PLUGIN</a>
+    </div>
+    <div class="thanks">
+      Thank you for using<br/>SULA STORE
+    </div>
+  </div>
 
-    <!-- Title -->
-    <h1 class="reveal" style="font-size: 3.5rem; font-weight: 800; margin-bottom: 10px; line-height: 1.2;">
-      <span style="background: linear-gradient(135deg, var(--primary), var(--accent-blue)); -webkit-background-clip: text; color: transparent;">
-        ARCH‑MD
-      </span>
-    </h1>
+  <div class="container">
+    <div class="profile-wrapper animate animate-delay-1">
+      <img class="profile-img" src="https://files.catbox.moe/9i0bf5.jpg" alt="Sula Store Profile">
+      <h2>SULA MINI BOT</h2>
+      <p>All you have to do is get the Pair Code and Link Device....<br><br>
+      Simply obtain your pair code and link your device to get started with our bot service.</p>
+    </div>
+  </div>
 
-    <p class="reveal" style="opacity: 0.85; font-size: 1.2rem; max-width: 700px; margin: 0 auto 2.5rem;">
-      The next-generation WhatsApp Bot for automation, deployment, and power users with advanced AI capabilities.
+  <div class="web-container animate animate-delay-2">
+    <h3 class="web-title"><i class="fas fa-link"></i> QUICK ACCESS LINKS</h3>
+    <div class="web-buttons">
+      <a href="https://sula-md.site" target="_blank"><i class="fas fa-external-link-alt"></i> SULA MINI</a>
+      <a href="https://wa.me/+94760663483" target="_blank"><i class="fab fa-whatsapp"></i> WHATSAPP</a>
+    </div>
+  </div>
+ 
+  <!-- Popup Modal -->
+  <div class="overlay" id="overlay"></div>
+  <div class="popup" id="popup">
+    <h3><i class="fas fa-bell"></i> IMPORTANT NOTICE</h3>
+    <p>
+      All you have to do is get the Pair Code and Link Device.<br><br>
+      Click on the Quick Access Links below, go to the website, enter your number, get the pair code, and link the device. The bot will connect automatically.<br><br>
+      It's a simple process that only takes a minute to complete.
     </p>
-
-    <!-- Stats -->
-    <div class="stats reveal">
-      <div class="stat-item">
-        <div class="stat-number">2,000+</div>
-        <div>Active Users</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">99.9%</div>
-        <div>Uptime</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">50+</div>
-        <div>Plugins</div>
-      </div>
-    </div>
-
-    <!-- CTA Buttons -->
-    <div class="reveal" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem;">
-      <a href="#pair" class="btn">
-        <i class="fas fa-rocket"></i> Get Started
-      </a>
-      <a href="#features" class="btn btn-secondary">
-        <i class="fas fa-feather-alt"></i> Learn More
-      </a>
-    </div>
-
-    <!-- Scroll Indicator -->
-    <div class="reveal" style="margin-top: 3rem;">
-      <a href="#features" class="scroll-indicator">
-        <i class="fas fa-chevron-down" style="animation: bounce 2s infinite;"></i>
-      </a>
-    </div>
+    <button onclick="closePopup()">GOT IT</button>
   </div>
-</section>
 
-<!-- Section: Features -->
-<section id="features" style="background: rgba(10, 15, 20, 0.7);">
-  <div class="container">
-    <div class="reveal">
-      <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 10px;">✨ Powerful Features</h2>
-      <p style="opacity: 0.85; max-width: 600px; margin: 0 auto 3rem;">
-        ARCH-MD comes packed with features that make it the most advanced WhatsApp bot available.
-      </p>
-    </div>
+  <div class="footer">© 2023 SULAKSHA MADARA | ALL RIGHTS RESERVED</div>
 
-    <div class="feature-grid">
-      <div class="feature-item reveal">
-        <div class="feature-icon">
-          <i class="fas fa-brain"></i>
-        </div>
-        <h3>AI-Powered Intelligence</h3>
-        <p>Advanced natural language processing for intelligent conversations and context-aware responses.</p>
-      </div>
-
-      <div class="feature-item reveal">
-        <div class="feature-icon">
-          <i class="fas fa-shield-alt"></i>
-        </div>
-        <h3>Advanced Security</h3>
-        <p>End-to-end encryption, user authentication, and secure data handling to protect your privacy.</p>
-      </div>
-
-      <div class="feature-item reveal">
-        <div class="feature-icon">
-          <i class="fas fa-plug"></i>
-        </div>
-        <h3>Plugin System</h3>
-        <p>Extensible architecture with support for custom plugins to add new functionality easily.</p>
-      </div>
-
-      <div class="feature-item reveal">
-        <div class="feature-icon">
-          <i class="fas fa-tachometer-alt"></i>
-        </div>
-        <h3>Performance Dashboard</h3>
-        <p>Monitor your bot's performance with real-time analytics and usage statistics.</p>
-      </div>
-
-      <div class="feature-item reveal">
-        <div class="feature-icon">
-          <i class="fas fa-robot"></i>
-        </div>
-        <h3>Automation Tools</h3>
-        <p>Automate repetitive tasks, schedule messages, and create custom workflows.</p>
-      </div>
-
-      <div class="feature-item reveal">
-        <div class="feature-icon">
-          <i class="fas fa-users-cog"></i>
-        </div>
-        <h3>Group Management</h3>
-        <p>Powerful tools for managing groups, moderating content, and automating admin tasks.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Section: Pair -->
-<section id="pair">
-  <div class="container">
-    <div class="reveal">
-      <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 10px;">🔗 Pair Your Device</h2>
-      <p style="opacity: 0.85; max-width: 600px; margin: 0 auto 2rem;">
-        Connect your WhatsApp account to get started with ARCH-MD in just a few simple steps.
-      </p>
-      
-      <div style="max-width: 500px; margin: 0 auto 3rem; text-align: left;">
-        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-          <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">1</div>
-          <div>Click the Pair Now button below</div>
-        </div>
-        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-          <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">2</div>
-          <div>Scan the QR code with WhatsApp</div>
-        </div>
-        <div style="display: flex; align-items: center;">
-          <div style="width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem;">3</div>
-          <div>Start using ARCH-MD immediately</div>
-        </div>
-      </div>
-      
-      <a href="#" class="btn">
-        <i class="fas fa-link"></i> Pair Now
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- Section: Testimonials -->
-<section id="testimonials" style="background: rgba(10, 15, 20, 0.7);">
-  <div class="container">
-    <div class="reveal">
-      <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 10px;">❤️ What Users Say</h2>
-      <p style="opacity: 0.85; max-width: 600px; margin: 0 auto 3rem;">
-        Don't just take our word for it. Here's what our users have to say about ARCH-MD.
-      </p>
-    </div>
-
-    <div class="testimonials">
-      <div class="testimonial reveal">
-        <div class="testimonial-text">
-          "ARCH-MD has completely transformed how I manage my WhatsApp groups. The automation features save me hours every week!"
-        </div>
-        <div class="testimonial-author">
-          <div class="author-avatar">S</div>
-          <div>
-            <strong>Sarah Johnson</strong>
-            <div>Community Manager</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testimonial reveal">
-        <div class="testimonial-text">
-          "The plugin system is incredible. I've customized ARCH-MD to handle our specific business needs perfectly."
-        </div>
-        <div class="testimonial-author">
-          <div class="author-avatar">M</div>
-          <div>
-            <strong>Michael Chen</strong>
-            <div>Tech Lead</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="testimonial reveal">
-        <div class="testimonial-text">
-          "I've tried many WhatsApp bots, but ARCH-MD stands out with its reliability and feature set. Highly recommended!"
-        </div>
-        <div class="testimonial-author">
-          <div class="author-avatar">A</div>
-          <div>
-            <strong>Alex Rodriguez</strong>
-            <div>Content Creator</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Section: Footer -->
-<section id="footer" style="padding: 60px 20px 30px; background: rgba(12, 14, 18, 0.8); backdrop-filter: blur(10px);">
-  <div class="container">
-    <div class="footer-content">
-      <div class="reveal">
-        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">ᴄᴀsᴡʏʀʜᴏᴅᴇs ᴍɪɴɪ</h3>
-        <p style="opacity: 0.8; margin-bottom: 1rem;">
-          The next-generation WhatsApp Bot for automation, deployment, and power users.
-        </p>
-        <div class="social-links">
-          <a href="#"><i class="fab fa-github"></i></a>
-          <a href="#"><i class="fab fa-telegram"></i></a>
-          <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-discord"></i></a>
-        </div>
-      </div>
-
-      <div class="reveal">
-        <h3 style="font-size: 1.2rem; margin-bottom: 1rem;">Quick Links</h3>
-        <ul class="footer-links">
-          <li><a href="#welcome">Home</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#pair">Pair Device</a></li>
-          <li><a href="#testimonials">Testimonials</a></li>
-        </ul>
-      </div>
-
-      <div class="reveal">
-        <h3 style="font-size: 1.2rem; margin-bottom: 1rem;">Resources</h3>
-        <ul class="footer-links">
-          <li><a href="#">Documentation</a></li>
-          <li><a href="#">API Reference</a></li>
-          <li><a href="#">Community Forum</a></li>
-          <li><a href="#">Plugin Library</a></li>
-        </ul>
-      </div>
-
-      <div class="reveal">
-        <h3 style="font-size: 1.2rem; margin-bottom: 1rem;">Contact</h3>
-        <ul class="footer-links">
-          <li><a href="mailto:support@archmd.com">support@archmd.com</a></li>
-          <li><a href="#">Report an Issue</a></li>
-          <li><a href="#">Request a Feature</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="reveal" style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 2rem;">
-      <p style="font-size: 0.9rem; opacity: 0.6;">&copy; <span id="year"></span> ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴛᴇᴄʜ. ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴄᴀsᴇʏʀʜᴏᴅᴇs ᴛᴇᴄʜ ❤️</p>
-    </div>
-  </div>
-</section>
-
-<!-- Particles.js Library -->
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
-<!-- Scripts -->
-<script>
-  // Initialize particles
-  document.addEventListener('DOMContentLoaded', function() {
-    particlesJS('particles-js', {
-      particles: {
-        number: {
-          value: 100,
-          density: {
-            enable: true,
-            value_area: 1000
-          }
-        },
-        color: {
-          value: ["#6a0dad", "#4b0082", "#0000ff", "#4a6cf7", "#8a2be2"]
-        },
-        shape: {
-          type: "circle",
-          stroke: {
-            width: 0,
-            color: "#000000"
-          }
-        },
-        opacity: {
-          value: 0.6,
-          random: true,
-          anim: {
-            enable: true,
-            speed: 1,
-            opacity_min: 0.2,
-            sync: false
-          }
-        },
-        size: {
-          value: 4,
-          random: true,
-          anim: {
-            enable: true,
-            speed: 3,
-            size_min: 0.5,
-            sync: false
-          }
-        },
-        line_linked: {
-          enable: true,
-          distance: 160,
-          color: "#6a0dad",
-          opacity: 0.4,
-          width: 1.5
-        },
-        move: {
-          enable: true,
-          speed: 2,
-          direction: "none",
-          random: true,
-          straight: false,
-          out_mode: "out",
-          bounce: false,
-          attract: {
-            enable: true,
-            rotateX: 600,
-            rotateY: 1200
-          }
-        }
-      },
-      interactivity: {
-        detect_on: "canvas",
-        events: {
-          onhover: {
-            enable: true,
-            mode: "grab"
-          },
-          onclick: {
-            enable: true,
-            mode: "push"
-          },
-          resize: true
-        },
-        modes: {
-          grab: {
-            distance: 180,
-            line_linked: {
-              opacity: 1
-            }
-          },
-          push: {
-            particles_nb: 6
-          }
-        }
-      },
-      retina_detect: true
-    });
-  });
-
-  // Drawer open/close
-  const drawer = document.getElementById("drawer");
-  const toggle = document.getElementById("menu-toggle");
-  const close = document.getElementById("close-menu");
-  
-  toggle.onclick = () => drawer.style.left = "0";
-  close.onclick = () => drawer.style.left = "-100%";
-  
-  function closeMenu() { 
-    drawer.style.left = "-100%"; 
-  }
-
-  // Reveal on scroll
-  const reveals = document.querySelectorAll(".reveal");
-  function revealOnScroll() {
-    const trigger = window.innerHeight * 0.85;
-    reveals.forEach(el => {
-      const top = el.getBoundingClientRect().top;
-      if (top < trigger) el.classList.add("active");
-    });
-  }
-  
-  // Set current year in footer
-  document.getElementById("year").textContent = new Date().getFullYear();
-  
-  window.addEventListener("scroll", revealOnScroll);
-  window.addEventListener("load", revealOnScroll);
-  
-  // Add bounce animation for scroll indicator
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-      40% {transform: translateY(-10px);}
-      60% {transform: translateY(-5px);}
+  <script>
+    function toggleMenu() {
+      document.getElementById('menu').classList.toggle('active');
     }
-  `;
-  document.head.appendChild(style);
-</script>
 
+    // Popup auto-show
+    window.onload = function () {
+      setTimeout(() => {
+        document.getElementById('popup').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+      }, 1500);
+      
+      createParticles();
+    };
+
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+
+    // Animation Scroll Trigger
+    const animatedItems = document.querySelectorAll('.animate');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    animatedItems.forEach(item => {
+      item.style.animationPlayState = 'paused';
+      observer.observe(item);
+    });
+
+    // Create particles for background
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const numberOfParticles = 30;
+      
+      for (let i = 0; i < numberOfParticles; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        const size = Math.random() * 10 + 2;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const delay = Math.random() * 10;
+        const duration = Math.random() * 20 + 10;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.top = `${posY}%`;
+        particle.style.animation = `
+          float ${duration}s ease-in-out ${delay}s infinite alternate`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Add floating animation for particles
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes float {
+        0% { transform: translate(0, 0) rotate(0deg); }
+        25% { transform: translate(5px, 10px) rotate(5deg); }
+        50% { transform: translate(10px, 5px) rotate(0deg); }
+        75% { transform: translate(5px, 10px) rotate(-5deg); }
+        100% { transform: translate(0, 0) rotate(0deg); }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
 </body>
 </html>
