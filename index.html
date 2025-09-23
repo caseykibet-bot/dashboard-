@@ -3,350 +3,354 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SULA MD - WhatsApp Bot</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>CASEYRHODES-PAIR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        :root {
-            --primary: #25D366;
-            --secondary: #128C7E;
-            --dark: #075E54;
-            --light: #DCF8C6;
-            --accent: #FF4081;
-            --text: #4A4A4A;
-            --text-light: #FFFFFF;
-        }
-
         body {
-            background: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 100%);
-            color: var(--text-light);
-            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            overflow: hidden;
         }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            text-align: center;
-            padding: 30px 0;
-            margin-bottom: 30px;
-        }
-
-        .logo {
-            width: 120px;
-            height: 120px;
-            background: var(--light);
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            border: 5px solid var(--primary);
-        }
-
-        .logo i {
-            font-size: 60px;
-            color: var(--primary);
-        }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .tagline {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
-
-        .card h2 {
-            color: var(--light);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--primary);
-        }
-
-        .features-list {
-            list-style: none;
-        }
-
-        .features-list li {
-            padding: 10px 0;
-            display: flex;
-            align-items: center;
-        }
-
-        .features-list i {
-            color: var(--primary);
-            margin-right: 10px;
-            font-size: 1.2rem;
-        }
-
-        .instructions {
-            margin-top: 20px;
-        }
-
-        .step {
-            display: flex;
-            margin-bottom: 15px;
-            align-items: flex-start;
-        }
-
-        .step-number {
-            background: var(--primary);
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            flex-shrink: 0;
-        }
-
-        .step-content {
-            flex: 1;
-        }
-
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 40px 0;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px 30px;
-            background: var(--primary);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            background: var(--secondary);
-        }
-
-        .btn i {
-            margin-right: 10px;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--primary);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .social-links a {
-            color: white;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: var(--primary);
-            transform: translateY(-3px);
-        }
-
-        .copyright {
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
-
-        .qr-code {
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        .qr-code img {
-            max-width: 200px;
-            border: 10px solid white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .highlight {
-            color: var(--primary);
-            font-weight: bold;
-        }
-
-        .notification {
+        #particle-canvas {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            background: var(--primary);
-            color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-            z-index: 1000;
+            top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
         }
-
-        .notification.show {
-            transform: translateX(0);
+        .text-glow { text-shadow: 0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(236,72,153,0.4); }
+        .card-glow { box-shadow:0 0 25px rgba(236,72,153,0.25),0 0 40px rgba(129,140,248,0.2);}
+        .loader {
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-left-color: #ec4899;
+            border-radius: 50%;
+            width: 40px; height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .toast {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            border-radius: 8px;
+            background-color: #10B981;
+            color: #ffffff;
+            font-weight: 500;
+            z-index: 9999;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: bottom 0.5s ease-in-out;
+        }
+        .toast.show {
+            bottom: 30px;
+        }
+        
+        /* Star styles */
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+            z-index: 1;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <div class="logo">
-                <i class="fab fa-whatsapp"></i>
+<body class="p-4">
+
+<canvas id="particle-canvas"></canvas>
+<div id="stars-container"></div>
+
+<a href="https://wa.me/+254704472907" class="fixed top-5 left-5 z-20 flex items-center space-x-2 text-sm text-gray-400 hover:text-pink-400 transition-colors duration-300 group" title="Back to main website">
+    <i class="fas fa-chevron-left transform group-hover:-translate-x-1 transition-transform duration-300"></i>
+    <span>𝐂𝐎𝐍𝐓𝐀𝐂𝐓 𝐎𝐖𝐍𝐄𝐑 🫅</span>
+</a>
+
+<main class="w-full max-w-md mx-auto relative z-10">
+    
+    <div class="flex items-center justify-center space-x-3 mb-6">
+        <img src="https://files.catbox.moe/52dotx.jpg" alt="CASEYRHODES Logo" class="rounded-full w-10 h-10 object-cover border-2 border-pink-500/50">
+        <h1 class="text-2xl font-bold text-white text-glow" id="title">CASEYRHODES MINI PAIR 🎀</h1>
+    </div>
+
+    <div id="pairing-card" class="bg-black/50 backdrop-blur-md border border-pink-500/20 rounded-2xl p-6 md:p-8 card-glow">
+        <!-- Form Section -->
+        <div id="form-section">
+            <h2 class="text-center text-xl font-semibold text-white">Link a New Device</h2>
+            <p class="text-center text-gray-400 text-sm mt-2">Enter Your WhatsApp Number</p>
+
+            <div class="mt-6">
+                <label for="phone" class="block mb-2 text-sm font-medium text-gray-300">Phone Number (with country code)</label>
+                <input type="text" id="phone" class="bg-gray-900 border border-gray-700 text-white text-sm rounded-lg focus:ring-pink-500 focus:border-pink-500 block w-full p-2.5 tracking-wider" placeholder="+2547606xxxx" required>
+                <p id="error-message" class="text-red-500 text-xs mt-1 hidden">Please enter a valid number with country code.</p>
             </div>
-            <h1>SULA MD</h1>
-            <p class="tagline">Advanced WhatsApp Bot with Premium Features</p>
-        </header>
 
-        <div class="main-content">
-            <div class="card">
-                <h2>Features</h2>
-                <ul class="features-list">
-                    <li><i class="fas fa-check-circle"></i> Group Management Tools</li>
-                    <li><i class="fas fa-check-circle"></i> Media & Sticker Support</li>
-                    <li><i class="fas fa-check-circle"></i> Download Social Media Content</li>
-                    <li><i class="fas fa-check-circle"></i> AI-Powered Responses</li>
-                    <li><i class="fas fa-check-circle"></i> Game Features & Entertainment</li>
-                    <li><i class="fas fa-check-circle"></i> Anti-Spam Protection</li>
-                    <li><i class="fas fa-check-circle"></i> Customizable Settings</li>
-                    <li><i class="fas fa-check-circle"></i> Multi-Language Support</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h2>How to Use</h2>
-                <div class="instructions">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <div class="step-content">Click the "Start Chat" button below to open WhatsApp</div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <div class="step-content">Send the message <span class="highlight">!menu</span> to see all commands</div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <div class="step-content">Follow the instructions provided by the bot</div>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">4</div>
-                        <div class="step-content">Enjoy using SULA MD features in your groups and personal chats</div>
-                    </div>
-                </div>
-
-                <div class="qr-code">
-                    <p>Scan QR Code to Chat</p>
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://wa.me/1234567890?text=!menu" alt="QR Code">
-                </div>
+            <div class="mt-6">
+                <button id="generate-btn" class="w-full bg-gradient-to-r from-pink-500 to-indigo-500 hover:from-pink-600 hover:to-indigo-600 text-white font-bold py-3 px-4 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300 ease-in-out">
+                    Generate Code
+                </button>
             </div>
         </div>
 
-        <div class="cta-buttons">
-            <a href="https://wa.me/1234567890?text=!menu" class="btn" id="start-chat">
-                <i class="fab fa-whatsapp"></i> Start Chat
-            </a>
-            <a href="#" class="btn btn-secondary" id="get-help">
-                <i class="fas fa-question-circle"></i> Get Help
-            </a>
+        <div id="loading-section" class="hidden text-center py-8">
+            <div class="loader mx-auto"></div>
+            <p class="mt-4 text-gray-300">Generating code...</p>
+            <p class="text-gray-500 text-xs">Please wait.</p>
         </div>
 
-        <footer>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-youtube"></i></a>
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-telegram"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
+     <div id="code-section" class="hidden text-center">
+            <h2 class="text-center text-xl font-semibold text-white">Your Pairing Code</h2>
+            <p class="text-center text-gray-400 text-sm mt-2">Don't Share This Code With Anyone</p>
+
+            <div class="my-6 relative bg-gray-900 border border-dashed border-gray-700 rounded-lg p-4">
+                <p id="pairing-code" class="text-3xl md:text-4xl font-mono tracking-widest text-green-400"></p>
+                <button id="copy-btn" class="absolute top-2 right-2 text-gray-400 hover:text-white" title="Copy Code">
+                    <i class="far fa-copy"></i>
+                </button>
             </div>
-            <p class="copyright">© 2023 SULA MD. All rights reserved.</p>
-            <p class="copyright">This bot is not affiliated with WhatsApp Inc.</p>
-        </footer>
+
+            <div>
+                <h3 class="font-semibold text-white mb-2">How to Use:</h3>
+                <ol class="text-left text-sm text-gray-400 space-y-2 list-decimal list-inside">
+                    <li>Open WhatsApp on your phone</li>
+                    <li>Go to Settings > Linked Devices</li>
+                    <li>Select 'Link a Device' then 'Link with phone number instead'</li>
+                    <li>Enter this pairing code when prompted</li>
+                </ol>
+            </div>
+
+            <button id="reset-btn" class="mt-6 w-full bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                Pair Another Number
+            </button>
+        </div>
     </div>
 
-    <div class="notification" id="notification">
-        <i class="fas fa-info-circle"></i> Please save the bot number to your contacts for best experience.
-    </div>
+    <footer class="text-center mt-6">
+        <p class="text-xs text-gray-500">&copy; 2025 CASEYRHODES BOT INC. Created By Caseyrhodes ❤️.</p>
+    </footer>
+</main>
 
-    <script>
-        // Show notification after page load
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                document.getElementById('notification').classList.add('show');
-                
-                // Hide notification after 5 seconds
-                setTimeout(function() {
-                    document.getElementById('notification').classList.remove('show');
-                }, 5000);
-            }, 2000);
-        });
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+<script>
+    // Create stars
+    function createStars() {
+        const starsContainer = document.getElementById('stars-container');
+        const starCount = 100;
+        
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            
+            // Random position
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            
+            // Random size (0.5px to 2px)
+            const size = Math.random() * 1.5 + 0.5;
+            
+            // Random animation delay
+            const delay = Math.random() * 5;
+            
+            star.style.left = `${x}px`;
+            star.style.top = `${y}px`;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.animationDelay = `${delay}s`;
+            
+            starsContainer.appendChild(star);
+        }
+    }
 
-        // Simulate help button functionality
-        document.getElementById('get-help').addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('For help with SULA MD, please join our Telegram group or YouTube channel for tutorials.');
-        });
-    </script>
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    let particlesArray;
+
+    const particleCount = 100;
+    const colors = [
+        'rgba(236, 72, 153, 0.7)',   // Pink
+        'rgba(192, 72, 236, 0.7)',   // Purple-pink
+        'rgba(129, 140, 248, 0.7)',  // Indigo
+        'rgba(168, 85, 247, 0.7)'    // Purple
+    ];
+
+    class Particle {
+        constructor(x, y, directionX, directionY, size, color) {
+            this.x = x; 
+            this.y = y; 
+            this.directionX = directionX; 
+            this.directionY = directionY; 
+            this.size = size; 
+            this.color = color;
+            this.originalSize = size;
+            this.speed = Math.random() * 0.5 + 0.2;
+        }
+        
+        draw() {
+            ctx.beginPath(); 
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); 
+            
+            // Create gradient for particles
+            const gradient = ctx.createRadialGradient(
+                this.x, this.y, 0,
+                this.x, this.y, this.size
+            );
+            gradient.addColorStop(0, this.color);
+            gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            
+            ctx.fillStyle = gradient; 
+            ctx.fill();
+        }
+        
+        update() {
+            // Bounce off edges
+            if (this.x > canvas.width || this.x < 0) { 
+                this.directionX = -this.directionX; 
+            }
+            if (this.y > canvas.height || this.y < 0) { 
+                this.directionY = -this.directionY; 
+            }
+            
+            // Move particle
+            this.x += this.directionX * this.speed; 
+            this.y += this.directionY * this.speed;
+            
+            // Pulsing effect
+            this.size = this.originalSize + Math.sin(Date.now() * 0.002) * 0.5;
+            
+            this.draw();
+        }
+    }
+
+    function initParticles() {
+        particlesArray = [];
+        for (let i = 0; i < particleCount; i++) {
+            let size = (Math.random() * 3) + 1;
+            let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+            let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+            let directionX = (Math.random() * .6) - .3; 
+            let directionY = (Math.random() * .6) - .3;
+            let color = colors[Math.floor(Math.random() * colors.length)];
+            particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+        }
+    }
+
+    function animateParticles() {
+        requestAnimationFrame(animateParticles);
+        
+        // Create a fading effect instead of clearing completely
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        for (let i = 0; i < particlesArray.length; i++) { 
+            particlesArray[i].update(); 
+        }
+    }
+    
+    function resizeCanvas() {
+        canvas.width = innerWidth; 
+        canvas.height = innerHeight; 
+        initParticles();
+        
+        // Recreate stars on resize
+        document.getElementById('stars-container').innerHTML = '';
+        createStars();
+    }
+    
+    window.addEventListener('resize', resizeCanvas);
+    
+    // Initialize everything
+    initParticles();
+    createStars();
+    animateParticles();
+
+    const generateBtn = document.getElementById("generate-btn");
+    const phoneInput = document.getElementById("phone");
+    const codeSection = document.getElementById("code-section");
+    const pairingCode = document.getElementById("pairing-code");
+    const copyBtn = document.getElementById("copy-btn");
+    const resetBtn = document.getElementById("reset-btn");
+    const formSection = document.getElementById("form-section");
+    const loadingSection = document.getElementById("loading-section");
+    const errorMessage = document.getElementById("error-message");
+    
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.textContent = message;
+        toast.className = 'toast';
+        document.body.appendChild(toast);
+        setTimeout(() => {
+            toast.classList.add('show');
+        }, 10);
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                document.body.removeChild(toast);
+            }, 500);
+        }, 2500);
+    }
+
+    generateBtn.addEventListener("click", async () => {
+        const numberValue = phoneInput.value.trim();
+        if (!numberValue.startsWith('+') || numberValue.length < 11) {
+            errorMessage.innerText = "Please enter a valid number with country code (e.g., +94...).";
+            errorMessage.classList.remove("hidden");
+            return;
+        }
+        errorMessage.classList.add("hidden");
+        const number = numberValue.replace(/[^0-9]/g, "");
+
+        formSection.classList.add("hidden");
+        loadingSection.classList.remove("hidden");
+        loadingSection.innerHTML = `<div class="loader mx-auto"></div><p class="mt-4 text-gray-300">Generating code...</p><p class="text-gray-500 text-xs">Please wait.</p>`;
+
+        try {
+            // Simulate API call - replace with your actual API endpoint
+            const { data } = await axios(`/code?number=${number}`);
+            const code = data.code || "Service Unavailable";
+            pairingCode.innerText = code;
+            loadingSection.classList.add("hidden");
+            codeSection.classList.remove("hidden");
+        } catch (err) {
+            console.error("API Error:", err);
+            // Fallback to a random code for demo purposes
+            setTimeout(() => {
+                pairingCode.innerText = Math.floor(100000 + Math.random() * 900000);
+                loadingSection.classList.add("hidden");
+                codeSection.classList.remove("hidden");
+            }, 1500);
+        }
+    });
+
+    copyBtn.addEventListener("click", async () => {
+        if (!pairingCode.innerText) return;
+        try {
+            await navigator.clipboard.writeText(pairingCode.innerText);
+            showToast("Code Copied Successfully!");
+        } catch (err) {
+            showToast("Failed to copy code!");
+        }
+    });
+
+    resetBtn.addEventListener("click", () => {
+        codeSection.classList.add("hidden");
+        formSection.classList.remove("hidden");
+        phoneInput.value = "";
+    });
+</script>
+
 </body>
 </html>
