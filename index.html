@@ -20,23 +20,12 @@
             min-height: 100vh;
             overflow: hidden;
         }
-        #matrix-canvas {
+        #particle-canvas {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
         }
-        .text-glow { 
-            text-shadow: 0 0 8px rgba(236, 72, 153, 0.7), 
-                         0 0 16px rgba(168, 85, 247, 0.5),
-                         0 0 24px rgba(192, 132, 252, 0.3);
-        }
-        .card-glow { 
-            box-shadow: 0 0 15px rgba(236, 72, 153, 0.4),
-                        0 0 30px rgba(168, 85, 247, 0.3);
-        }
-        .button-glow {
-            box-shadow: 0 0 10px rgba(236, 72, 153, 0.6),
-                        0 0 20px rgba(168, 85, 247, 0.4);
-        }
+        .text-glow { text-shadow: 0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(236,72,153,0.4); }
+        .card-glow { box-shadow:0 0 25px rgba(236,72,153,0.25),0 0 40px rgba(129,140,248,0.2);}
         .loader {
             border: 4px solid rgba(255, 255, 255, 0.2);
             border-left-color: #ec4899;
@@ -53,12 +42,12 @@
             transform: translateX(-50%);
             padding: 12px 24px;
             border-radius: 8px;
-            background: linear-gradient(to right, #ec4899, #a855f7);
+            background-color: #10B981;
             color: #ffffff;
             font-weight: 500;
             z-index: 9999;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: bottom 0.3s ease-in-out;
+            transition: bottom 0.5s ease-in-out;
         }
         .toast.show {
             bottom: 30px;
@@ -77,63 +66,24 @@
             0%, 100% { opacity: 0.2; transform: scale(0.8); }
             50% { opacity: 1; transform: scale(1.2); }
         }
-
-        /* Text color styles */
-        h1, h2, h3, h4, h5, h6, p, span, label, li, a, button, input, footer p {
-            color: #f0abfc; /* Light pink color */
-        }
         
-        /* Specific heading colors */
-        h1, h2, h3 {
-            color: #d8b4fe; /* Light purple color for headings */
+        /* Reduced button animations */
+        .btn-animation {
+            transition: transform 0.15s ease-in-out;
         }
-        
-        /* Placeholder text color */
-        input::placeholder {
-            color: #d8b4fe; /* Light purple */
-        }
-        
-        /* Matrix animation styles */
-        .matrix-char {
-            position: absolute;
-            color: rgba(216, 180, 254, 0.7); /* Light purple matrix characters */
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            z-index: 0;
-            animation: matrix-fall linear infinite;
-        }
-        
-        @keyframes matrix-fall {
-            0% {
-                transform: translateY(-100px);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh);
-                opacity: 0;
-            }
-        }
-        
-        /* Reduced copy button animation */
-        #copy-btn {
-            transition: transform 0.2s ease, color 0.2s ease;
-        }
-        
-        #copy-btn:hover {
-            transform: scale(1.05);
-            color: #f0abfc;
+        .btn-animation:hover {
+            transform: scale(1.025);
         }
     </style>
 </head>
 <body class="p-4">
 
-<div id="matrix-canvas"></div>
+<canvas id="particle-canvas"></canvas>
 <div id="stars-container"></div>
-<div id="matrix-chars"></div>
 
-<a href="https://wa.me/+254704472907" class="fixed top-5 left-5 z-20 flex items-center space-x-2 text-sm text-gray-400 hover:text-pink-400 transition-colors duration-300 group" title="Back to main website">
-    <i class="fas fa-chevron-left transform group-hover:-translate-x-1 transition-transform duration-300"></i>
-    <span>𝐂𝐎𝐍𝐓𝐀𝐂𝐓 𝐎𝐖𝐍𝐄𝐑 🫅</span>
+<a href="https://wa.me/+254704472907" class="fixed top-5 left-5 z-20 flex items-center space-x-2 text-sm text-gray-400 hover:text-gray-300 transition-colors duration-300 group" title="Back to main website">
+    <i class="fas fa-chevron-left transform group-hover:-translate-x-0.5 transition-transform duration-150"></i>
+    <span>CONTACT OWNER 🫅</span>
 </a>
 
 <main class="w-full max-w-md mx-auto relative z-10">
@@ -146,7 +96,7 @@
     <div id="pairing-card" class="bg-black/50 backdrop-blur-md border border-pink-500/20 rounded-2xl p-6 md:p-8 card-glow">
         <!-- Form Section -->
         <div id="form-section">
-            <h2 class="text-center text-lg font-semibold text-white">Link a New Device</h2>
+            <h2 class="text-center text-xl font-semibold text-white">Link a New Device</h2>
             <p class="text-center text-gray-400 text-sm mt-2">Enter Your WhatsApp Number</p>
 
             <div class="mt-6">
@@ -156,7 +106,7 @@
             </div>
 
             <div class="mt-6">
-                <button id="generate-btn" class="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold py-3 px-4 rounded-lg button-glow transform transition-transform duration-300 ease-in-out">
+                <button id="generate-btn" class="w-full bg-gradient-to-r from-pink-500 to-indigo-500 hover:from-pink-600 hover:to-indigo-600 text-white font-bold py-3 px-4 rounded-lg shadow-lg btn-animation">
                     Generate Code
                 </button>
             </div>
@@ -169,12 +119,12 @@
         </div>
 
      <div id="code-section" class="hidden text-center">
-            <h2 class="text-center text-lg font-semibold text-white">Your Pairing Code</h2>
+            <h2 class="text-center text-xl font-semibold text-white">Your Pairing Code</h2>
             <p class="text-center text-gray-400 text-sm mt-2">Don't Share This Code With Anyone</p>
 
             <div class="my-6 relative bg-gray-900 border border-dashed border-gray-700 rounded-lg p-4">
                 <p id="pairing-code" class="text-3xl md:text-4xl font-mono tracking-widest text-green-400"></p>
-                <button id="copy-btn" class="absolute top-2 right-2 text-gray-400" title="Copy Code">
+                <button id="copy-btn" class="absolute top-2 right-2 text-gray-400 hover:text-white btn-animation" title="Copy Code">
                     <i class="far fa-copy"></i>
                 </button>
             </div>
@@ -189,7 +139,7 @@
                 </ol>
             </div>
 
-            <button id="reset-btn" class="mt-6 w-full bg-gradient-to-r from-gray-700 to-gray-800 hover:from-gray-600 hover:to-gray-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+            <button id="reset-btn" class="mt-6 w-full bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-colors btn-animation">
                 Pair Another Number
             </button>
         </div>
@@ -202,35 +152,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
 <script>
-    // Matrix animation
-    function createMatrixAnimation() {
-        const matrixChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%\"'#&_(),.;:?!\\|{}<>[]^~";
-        const container = document.getElementById('matrix-chars');
-        const fontSize = 14;
-        const columns = Math.floor(window.innerWidth / fontSize);
-        
-        // Create columns
-        for (let i = 0; i < columns; i++) {
-            const char = document.createElement('div');
-            char.className = 'matrix-char';
-            char.style.left = `${i * fontSize}px`;
-            char.style.animationDuration = `${Math.random() * 5 + 3}s`;
-            char.style.animationDelay = `${Math.random() * 2}s`;
-            char.textContent = matrixChars.charAt(Math.floor(Math.random() * matrixChars.length));
-            container.appendChild(char);
-        }
-        
-        // Update characters periodically
-        setInterval(() => {
-            const chars = document.querySelectorAll('.matrix-char');
-            chars.forEach(char => {
-                if (Math.random() > 0.95) {
-                    char.textContent = matrixChars.charAt(Math.floor(Math.random() * matrixChars.length));
-                }
-            });
-        }, 100);
-    }
-
     // Create stars
     function createStars() {
         const starsContainer = document.getElementById('stars-container');
@@ -260,17 +181,109 @@
         }
     }
 
-    // Initialize animations
-    createMatrixAnimation();
-    createStars();
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    let particlesArray;
 
-    // Handle window resize
-    window.addEventListener('resize', () => {
-        document.getElementById('matrix-chars').innerHTML = '';
+    const particleCount = 100;
+    const colors = [
+        'rgba(236, 72, 153, 0.7)',   // Pink
+        'rgba(192, 72, 236, 0.7)',   // Purple-pink
+        'rgba(129, 140, 248, 0.7)',  // Indigo
+        'rgba(168, 85, 247, 0.7)'    // Purple
+    ];
+
+    class Particle {
+        constructor(x, y, directionX, directionY, size, color) {
+            this.x = x; 
+            this.y = y; 
+            this.directionX = directionX; 
+            this.directionY = directionY; 
+            this.size = size; 
+            this.color = color;
+            this.originalSize = size;
+            this.speed = Math.random() * 0.5 + 0.2;
+        }
+        
+        draw() {
+            ctx.beginPath(); 
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); 
+            
+            // Create gradient for particles
+            const gradient = ctx.createRadialGradient(
+                this.x, this.y, 0,
+                this.x, this.y, this.size
+            );
+            gradient.addColorStop(0, this.color);
+            gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            
+            ctx.fillStyle = gradient; 
+            ctx.fill();
+        }
+        
+        update() {
+            // Bounce off edges
+            if (this.x > canvas.width || this.x < 0) { 
+                this.directionX = -this.directionX; 
+            }
+            if (this.y > canvas.height || this.y < 0) { 
+                this.directionY = -this.directionY; 
+            }
+            
+            // Move particle
+            this.x += this.directionX * this.speed; 
+            this.y += this.directionY * this.speed;
+            
+            // Pulsing effect
+            this.size = this.originalSize + Math.sin(Date.now() * 0.002) * 0.5;
+            
+            this.draw();
+        }
+    }
+
+    function initParticles() {
+        particlesArray = [];
+        for (let i = 0; i < particleCount; i++) {
+            let size = (Math.random() * 3) + 1;
+            let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
+            let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
+            let directionX = (Math.random() * .6) - .3; 
+            let directionY = (Math.random() * .6) - .3;
+            let color = colors[Math.floor(Math.random() * colors.length)];
+            particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+        }
+    }
+
+    function animateParticles() {
+        requestAnimationFrame(animateParticles);
+        
+        // Create a fading effect instead of clearing completely
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        for (let i = 0; i < particlesArray.length; i++) { 
+            particlesArray[i].update(); 
+        }
+    }
+    
+    function resizeCanvas() {
+        canvas.width = innerWidth; 
+        canvas.height = innerHeight; 
+        initParticles();
+        
+        // Recreate stars on resize
         document.getElementById('stars-container').innerHTML = '';
-        createMatrixAnimation();
         createStars();
-    });
+    }
+    
+    window.addEventListener('resize', resizeCanvas);
+    
+    // Initialize everything
+    initParticles();
+    createStars();
+    animateParticles();
 
     const generateBtn = document.getElementById("generate-btn");
     const phoneInput = document.getElementById("phone");
