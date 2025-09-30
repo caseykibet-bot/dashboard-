@@ -20,7 +20,7 @@
             min-height: 100vh;
             overflow: hidden;
         }
-        #particle-canvas {
+        #matrix-canvas {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
         }
@@ -66,12 +66,49 @@
             0%, 100% { opacity: 0.2; transform: scale(0.8); }
             50% { opacity: 1; transform: scale(1.2); }
         }
+
+        /* Text color styles */
+        h1, h2, h3, h4, h5, h6, p, span, label, li, a, button, input, footer p {
+            color: #ec4899; /* Pink color */
+        }
+        
+        /* Specific heading colors */
+        h1, h2, h3 {
+            color: #a855f7; /* Purple color for headings */
+        }
+        
+        /* Placeholder text color */
+        input::placeholder {
+            color: #d8b4fe; /* Light purple */
+        }
+        
+        /* Matrix animation styles */
+        .matrix-char {
+            position: absolute;
+            color: rgba(168, 85, 247, 0.7); /* Purple matrix characters */
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            z-index: 0;
+            animation: matrix-fall linear infinite;
+        }
+        
+        @keyframes matrix-fall {
+            0% {
+                transform: translateY(-100px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body class="p-4">
 
-<canvas id="particle-canvas"></canvas>
+<div id="matrix-canvas"></div>
 <div id="stars-container"></div>
+<div id="matrix-chars"></div>
 
 <a href="https://wa.me/+254704472907" class="fixed top-5 left-5 z-20 flex items-center space-x-2 text-sm text-gray-400 hover:text-pink-400 transition-colors duration-300 group" title="Back to main website">
     <i class="fas fa-chevron-left transform group-hover:-translate-x-1 transition-transform duration-300"></i>
@@ -144,6 +181,35 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
 <script>
+    // Matrix animation
+    function createMatrixAnimation() {
+        const matrixChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%\"'#&_(),.;:?!\\|{}<>[]^~";
+        const container = document.getElementById('matrix-chars');
+        const fontSize = 14;
+        const columns = Math.floor(window.innerWidth / fontSize);
+        
+        // Create columns
+        for (let i = 0; i < columns; i++) {
+            const char = document.createElement('div');
+            char.className = 'matrix-char';
+            char.style.left = `${i * fontSize}px`;
+            char.style.animationDuration = `${Math.random() * 5 + 3}s`;
+            char.style.animationDelay = `${Math.random() * 2}s`;
+            char.textContent = matrixChars.charAt(Math.floor(Math.random() * matrixChars.length));
+            container.appendChild(char);
+        }
+        
+        // Update characters periodically
+        setInterval(() => {
+            const chars = document.querySelectorAll('.matrix-char');
+            chars.forEach(char => {
+                if (Math.random() > 0.95) {
+                    char.textContent = matrixChars.charAt(Math.floor(Math.random() * matrixChars.length));
+                }
+            });
+        }, 100);
+    }
+
     // Create stars
     function createStars() {
         const starsContainer = document.getElementById('stars-container');
@@ -173,109 +239,17 @@
         }
     }
 
-    const canvas = document.getElementById('particle-canvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    let particlesArray;
-
-    const particleCount = 100;
-    const colors = [
-        'rgba(236, 72, 153, 0.7)',   // Pink
-        'rgba(192, 72, 236, 0.7)',   // Purple-pink
-        'rgba(129, 140, 248, 0.7)',  // Indigo
-        'rgba(168, 85, 247, 0.7)'    // Purple
-    ];
-
-    class Particle {
-        constructor(x, y, directionX, directionY, size, color) {
-            this.x = x; 
-            this.y = y; 
-            this.directionX = directionX; 
-            this.directionY = directionY; 
-            this.size = size; 
-            this.color = color;
-            this.originalSize = size;
-            this.speed = Math.random() * 0.5 + 0.2;
-        }
-        
-        draw() {
-            ctx.beginPath(); 
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); 
-            
-            // Create gradient for particles
-            const gradient = ctx.createRadialGradient(
-                this.x, this.y, 0,
-                this.x, this.y, this.size
-            );
-            gradient.addColorStop(0, this.color);
-            gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-            
-            ctx.fillStyle = gradient; 
-            ctx.fill();
-        }
-        
-        update() {
-            // Bounce off edges
-            if (this.x > canvas.width || this.x < 0) { 
-                this.directionX = -this.directionX; 
-            }
-            if (this.y > canvas.height || this.y < 0) { 
-                this.directionY = -this.directionY; 
-            }
-            
-            // Move particle
-            this.x += this.directionX * this.speed; 
-            this.y += this.directionY * this.speed;
-            
-            // Pulsing effect
-            this.size = this.originalSize + Math.sin(Date.now() * 0.002) * 0.5;
-            
-            this.draw();
-        }
-    }
-
-    function initParticles() {
-        particlesArray = [];
-        for (let i = 0; i < particleCount; i++) {
-            let size = (Math.random() * 3) + 1;
-            let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
-            let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
-            let directionX = (Math.random() * .6) - .3; 
-            let directionY = (Math.random() * .6) - .3;
-            let color = colors[Math.floor(Math.random() * colors.length)];
-            particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
-        }
-    }
-
-    function animateParticles() {
-        requestAnimationFrame(animateParticles);
-        
-        // Create a fading effect instead of clearing completely
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        for (let i = 0; i < particlesArray.length; i++) { 
-            particlesArray[i].update(); 
-        }
-    }
-    
-    function resizeCanvas() {
-        canvas.width = innerWidth; 
-        canvas.height = innerHeight; 
-        initParticles();
-        
-        // Recreate stars on resize
-        document.getElementById('stars-container').innerHTML = '';
-        createStars();
-    }
-    
-    window.addEventListener('resize', resizeCanvas);
-    
-    // Initialize everything
-    initParticles();
+    // Initialize animations
+    createMatrixAnimation();
     createStars();
-    animateParticles();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+        document.getElementById('matrix-chars').innerHTML = '';
+        document.getElementById('stars-container').innerHTML = '';
+        createMatrixAnimation();
+        createStars();
+    });
 
     const generateBtn = document.getElementById("generate-btn");
     const phoneInput = document.getElementById("phone");
