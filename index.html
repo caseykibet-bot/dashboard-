@@ -24,6 +24,11 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
         }
+        #matrix-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+            opacity: 0.4;
+        }
         .text-glow { text-shadow: 0 0 8px rgba(255,255,255,0.3), 0 0 20px rgba(236,72,153,0.4); }
         .card-glow { box-shadow:0 0 25px rgba(236,72,153,0.25),0 0 40px rgba(129,140,248,0.2);}
         .loader {
@@ -74,10 +79,40 @@
         .btn-animation:hover {
             transform: scale(1.025);
         }
+        
+        /* Matrix character styles */
+        .matrix-char {
+            position: absolute;
+            color: rgba(0, 255, 0, 0.7);
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            z-index: 0;
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+            opacity: 0;
+            animation: matrix-fall linear forwards;
+        }
+        
+        @keyframes matrix-fall {
+            0% {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body class="p-4">
 
+<canvas id="matrix-canvas"></canvas>
 <canvas id="particle-canvas"></canvas>
 <div id="stars-container"></div>
 
@@ -181,10 +216,55 @@
         }
     }
 
-    const canvas = document.getElementById('particle-canvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // Matrix animation
+    const matrixCanvas = document.getElementById('matrix-canvas');
+    const matrixCtx = matrixCanvas.getContext('2d');
+    matrixCanvas.width = window.innerWidth;
+    matrixCanvas.height = window.innerHeight;
+    
+    const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%\"'#&_(),.;:?!\\|{}<>[]^~";
+    const charArray = chars.split("");
+    const fontSize = 14;
+    const columns = matrixCanvas.width / fontSize;
+    const drops = [];
+    
+    // Initialize drops
+    for (let i = 0; i < columns; i++) {
+        drops[i] = 1;
+    }
+    
+    function drawMatrix() {
+        // Semi-transparent black to create fading effect
+        matrixCtx.fillStyle = "rgba(0, 0, 0, 0.04)";
+        matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+        
+        matrixCtx.fillStyle = "#0F0"; // Green text
+        matrixCtx.font = fontSize + "px monospace";
+        
+        // Loop over drops
+        for (let i = 0; i < drops.length; i++) {
+            // Random character to print
+            const text = charArray[Math.floor(Math.random() * charArray.length)];
+            
+            // x = i * fontSize, y = value of drops[i] * fontSize
+            matrixCtx.fillText(text, i * fontSize, drops[i] * fontSize);
+            
+            // Sending the drop back to the top randomly after it has crossed the screen
+            // Adding randomness to the reset to make the drops scattered on the Y axis
+            if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            
+            // Incrementing Y coordinate
+            drops[i]++;
+        }
+    }
+    
+    // Particle animation
+    const particleCanvas = document.getElementById('particle-canvas');
+    const particleCtx = particleCanvas.getContext('2d');
+    particleCanvas.width = window.innerWidth;
+    particleCanvas.height = window.innerHeight;
     let particlesArray;
 
     const particleCount = 100;
@@ -208,27 +288,27 @@
         }
         
         draw() {
-            ctx.beginPath(); 
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); 
+            particleCtx.beginPath(); 
+            particleCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false); 
             
             // Create gradient for particles
-            const gradient = ctx.createRadialGradient(
+            const gradient = particleCtx.createRadialGradient(
                 this.x, this.y, 0,
                 this.x, this.y, this.size
             );
             gradient.addColorStop(0, this.color);
             gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
             
-            ctx.fillStyle = gradient; 
-            ctx.fill();
+            particleCtx.fillStyle = gradient; 
+            particleCtx.fill();
         }
         
         update() {
             // Bounce off edges
-            if (this.x > canvas.width || this.x < 0) { 
+            if (this.x > particleCanvas.width || this.x < 0) { 
                 this.directionX = -this.directionX; 
             }
-            if (this.y > canvas.height || this.y < 0) { 
+            if (this.y > particleCanvas.height || this.y < 0) { 
                 this.directionY = -this.directionY; 
             }
             
@@ -260,8 +340,22 @@
         requestAnimationFrame(animateParticles);
         
         // Create a fading effect instead of clearing completely
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        particleCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        particleCtx.fillRect(0, 0, particleCanvas.width, particleCanvas.height);
+        
+        for (let i = 0; i < particlesArray.length; i++) { 
+            particlesArray[i].update(); 
+        }
+    }
+    
+    // Combined animation loop
+    function animate() {
+        requestAnimationFrame(animate);
+        drawMatrix();
+        
+        // Update particles
+        particleCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        particleCtx.fillRect(0, 0, particleCanvas.width, particleCanvas.height);
         
         for (let i = 0; i < particlesArray.length; i++) { 
             particlesArray[i].update(); 
@@ -269,8 +363,10 @@
     }
     
     function resizeCanvas() {
-        canvas.width = innerWidth; 
-        canvas.height = innerHeight; 
+        matrixCanvas.width = innerWidth; 
+        matrixCanvas.height = innerHeight; 
+        particleCanvas.width = innerWidth; 
+        particleCanvas.height = innerHeight; 
         initParticles();
         
         // Recreate stars on resize
@@ -283,7 +379,7 @@
     // Initialize everything
     initParticles();
     createStars();
-    animateParticles();
+    animate();
 
     const generateBtn = document.getElementById("generate-btn");
     const phoneInput = document.getElementById("phone");
